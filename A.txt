@@ -1,0 +1,52 @@
+#include <stdio.h>
+int main(){
+    char ch[1005],st[1005]; scanf("%s",ch);
+    int f=0,top=-1;
+    for(int i=0;ch[i];i++)
+    {
+        if(ch[i]=='(' || ch[i]=='[' || ch[i]=='{') { st[++top]=ch[i];}
+        else{
+            if(top==-1){f=1; break;}
+            else if((ch[i]==')' && st[top]=='(') || 
+                    (ch[i]==']' && st[top]=='[') ||
+                    (ch[i]=='}' && st[top]=='{'))    top--;
+            else{f=1; break;}
+       }
+    }
+    if(f==0 && top==-1)printf("YES");
+    else printf("NO");
+}
+
+
+int main() {
+    int n; scanf("%d",&n);
+    int s1[n],s2[n],t1=-1,t2=-1;
+    for(int i=0;i<n;i++)
+    {
+        int ch,x; scanf("%d",&ch);
+        switch(ch){
+            case 1: scanf("%d",&x);s1[++t1]=x;break;
+            case 2:
+                   while(t1!=-1){
+                       s2[++t2]=s1[t1--];
+                   }
+                   t2--;
+                   while(t2!=-1)
+                   {
+                       s1[++t1]=s2[t2--];
+                   }
+                   break;
+            case 3:  
+                 while(t1!=-1){
+                       s2[++t2]=s1[t1--];
+                   }
+                   printf("%d\n",s2[t2]);
+                   while(t2!=-1)
+                   {
+                       s1[++t1]=s2[t2--];
+                   }
+                   break;
+        }
+    }
+    return 0;
+}
